@@ -43,10 +43,50 @@ enum {
     SOCKET_CONNECTION_ERROR = 9604
 }socketsReturns_t; 
 
+/**
+ * @brief  Create TCP Server
+ * @param  [in] SOCKET Struct
+ * @return [int16_t] Function Execute Result
+ * @retval [socketsReturns_t] Look Function Retvals
+ */
 sockets_t serverCreate(socket_t *SOCKET);
+
+/**
+ * @brief  Create TCP Server
+ * @param  [in] SOCKET Struct
+ * @param  [in] format Send Arguments
+ * @return [int16_t] Function Execute Result
+ * @retval [socketsReturns_t] Look Function Retvals
+ */
 sockets_t sendtoServer(socket_t *SOCKET,char *format, ...);
+
+/**
+ * @brief  Create TCP Server
+ * @param  [in] SOCKET Struct
+ * @param  [in] DATA_PARSE Parse Function 
+ * @return [int16_t] Function Execute Result
+ * @retval [socketsReturns_t] Look Function Retvals
+ */
 sockets_t serverListen(socket_t *SOCKET,void (*DATA_PARSE)(char*));
+
+/**
+ * @brief  Create TCP Server
+ * @param  [in] SOCKET Struct
+ * @param  [in] IP Server IP
+ * @param  [in] PORT Server Port 
+ * @return [int16_t] Function Execute Result
+ * @retval [socketsReturns_t] Look Function Retvals
+ */
 sockets_t setServer(socket_t *SOCKET,char* IP,int PORT);
+
+/**
+ * @brief  Create TCP Server
+ * @param  [in] SOCKET Struct
+ * @param  [in] clientSocket Client Socket Variable
+ * @param  [in] format Send Arguments
+ * @return [int16_t] Function Execute Result
+ * @retval [socketsReturns_t] Look Function Retvals
+ */
 sockets_t sendtoClient(socket_t *SOCKET,int clientSocket,char *format, ...);
 
 

@@ -23,7 +23,7 @@ int main(const int argc, const char *argv[])
     (void)argc;
 
     socket_t localSocket;
-    setServer(&localSocket,"127.0.0.1",5000);
+    setServer(&localSocket,"188.38.15.126",5001);
 
     //serverCreate(&localSocket);
     //serverListen(&localSocket,&parser);

@@ -32,11 +32,6 @@ void logger(logLevel_t selectLogLevel, const char *format, ...)
 
         fprintf(stdout, "[%s]: %s ", debugLevelGetString(selectLogLevel), timeBuf);
         vfprintf(stdout, format, va);
-        if (selectLogLevel == ERROR)
-        {
-            fprintf(stderr, "[%s]: %s ", debugLevelGetString(selectLogLevel), timeBuf);
-            vfprintf(stderr, format, va);
-        }
     }
     va_end(va);
     return;

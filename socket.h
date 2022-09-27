@@ -33,7 +33,7 @@ typedef struct
 
 typedef int16_t sockets_t;
 
-enum {
+enum socketsReturns_t{
     PROSES_ERROR   = -1,
     PROSES_SUCCESS = 0,
     PROSES_FAIL    = 1,
@@ -41,7 +41,7 @@ enum {
     SOCKET_CLIENT_CREATE_ERROR = 9602,
     SOCKET_BIND_ERROR = 9603,
     SOCKET_CONNECTION_ERROR = 9604
-}socketsReturns_t; 
+}; 
 
 /**
  * @brief  Create TCP Server
@@ -52,25 +52,7 @@ enum {
 sockets_t serverCreate(socket_t *SOCKET);
 
 /**
- * @brief  Create TCP Server
- * @param  [in] SOCKET Struct
- * @param  [in] format Send Arguments
- * @return [int16_t] Function Execute Result
- * @retval [socketsReturns_t] Look Function Retvals
- */
-sockets_t sendtoServer(socket_t *SOCKET,char *format, ...);
-
-/**
- * @brief  Create TCP Server
- * @param  [in] SOCKET Struct
- * @param  [in] DATA_PARSE Parse Function 
- * @return [int16_t] Function Execute Result
- * @retval [socketsReturns_t] Look Function Retvals
- */
-sockets_t serverListen(socket_t *SOCKET,void (*DATA_PARSE)(char*));
-
-/**
- * @brief  Create TCP Server
+ * @brief  Set TCP Server
  * @param  [in] SOCKET Struct
  * @param  [in] IP Server IP
  * @param  [in] PORT Server Port 
@@ -80,7 +62,25 @@ sockets_t serverListen(socket_t *SOCKET,void (*DATA_PARSE)(char*));
 sockets_t setServer(socket_t *SOCKET,char* IP,int PORT);
 
 /**
- * @brief  Create TCP Server
+ * @brief  Listen TCP Server
+ * @param  [in] SOCKET Struct
+ * @param  [in] DATA_PARSE Parse Function 
+ * @return [int16_t] Function Execute Result
+ * @retval [socketsReturns_t] Look Function Retvals
+ */
+sockets_t serverListen(socket_t *SOCKET,void (*DATA_PARSE)(char*));
+
+/**
+ * @brief  Send from Client to Server Data
+ * @param  [in] SOCKET Struct
+ * @param  [in] format Send Arguments
+ * @return [int16_t] Function Execute Result
+ * @retval [socketsReturns_t] Look Function Retvals
+ */
+sockets_t sendtoServer(socket_t *SOCKET,char *format, ...);
+
+/**
+ * @brief  Send from Server to Client Data
  * @param  [in] SOCKET Struct
  * @param  [in] clientSocket Client Socket Variable
  * @param  [in] format Send Arguments

@@ -1,32 +1,20 @@
 #include "socket.h"
 #include "frozen.h"
 
-char* jsonObject = ".Datas";
-char* jsonData1 = "{CodeID: %d}";
-char* jsonData2 = "{Status: %d}";
-
-void parser(char *buff)
-{
-    struct json_token token;
-    int len = strlen(buff);
-    int x, y;
-    for (int i = 0; json_scanf_array_elem(buff, len,jsonObject, i, &token) > 0; i++)
-    {
-        json_scanf(token.ptr, token.len,jsonData1, &x);
-        json_scanf(token.ptr, token.len,jsonData2, &y);
-    }
-}
-
 int main(const int argc, const char *argv[])
 {
-    (void)argv;
-    (void)argc;
+    if (argc != 3)
+    {
+        logger(ERROR,"%s <Server Ip> <Server Port>\n",argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    char* IP = (char*)malloc(sizeof(char) * 15);
+    strcpy(IP,argv[1]);
+    int PORT = atoi(argv[2]);
 
     socket_t localSocket;
-    setServer(&localSocket,"188.38.15.126",5001);
-
-    //serverCreate(&localSocket);
-    //serverListen(&localSocket,&parser);
+    setServer(&localSocket,IP,PORT);
 
     sendtoServer(&localSocket,"{Datas: [{CodeID: %d,Status: %d}]}",25,152);
 

@@ -13,10 +13,9 @@ int main(const int argc, const char *argv[])
     strcpy(IP,argv[1]);
     int PORT = atoi(argv[2]);
 
-    socket_t localSocket;
-    setServer(&localSocket,IP,PORT);
-
-    sendtoServer(&localSocket,"{Datas: [{CodeID: %d,Status: %d}]}",25,152);
+    clientInit_t* localSocket = NEW_CLIENT_INIT(IP,PORT);
+    localSocket->Create(localSocket);
+    localSocket->SendToServer(localSocket,"{{Datas:[CodeID: %d,Status: %d]}}",12,24);
 
     return EXIT_SUCCESS;
 }

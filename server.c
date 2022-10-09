@@ -9,13 +9,14 @@ void parser(char *buff)
 {
     struct json_token token;
     int len = strlen(buff);
-    int value0,value1;
+    int value0 = 0 ; 
+    int value1 = 0 ;
     for (int i = 0; json_scanf_array_elem(buff, len,jsonObject, i, &token) > 0; i++)
     {
         json_scanf(token.ptr, token.len,jsonData1, &value0);
         json_scanf(token.ptr, token.len,jsonData2, &value1);
+        logger(INFO,"Incoming Data {ID = %d Status = %d}\n",value0,value1);
     }
-    logger(INFO,"Incoming Data {ID = %d Status = %d}\n",value0,value1);
 }
 
 int main(const int argc, const char *argv[])
@@ -30,14 +31,11 @@ int main(const int argc, const char *argv[])
     strcpy(IP,argv[1]);
     int PORT = atoi(argv[2]);
 
-    socket_t localSocket;
-    setServer(&localSocket,IP,PORT);
-    close(localSocket.server_sock);
+    serverInit_t* localSocket = NEW_SERVER_INIT(IP,PORT);
+    localSocket->Create(localSocket);
+    localSocket->Listen(localSocket,parser);
+    localSocket->Close(localSocket);
 
-    while ( serverCreate(&localSocket) != PROSES_SUCCESS );
-    serverListen(&localSocket,&parser);
-
-    //sendtoServer(&localSocket,"{Datas: [{CodeID: %d,Status: %d}]}",25,152);
 
     return EXIT_SUCCESS;
 }
